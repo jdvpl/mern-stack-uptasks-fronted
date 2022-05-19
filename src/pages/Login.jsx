@@ -19,8 +19,8 @@ const Login = () => {
       </form>
 
       <nav className="lg:flex lg:justify-between ">
-        <Link to='register' className="block text-center my-5 text-slate-500 uppercase text-sm">No tienes cuenta?</Link>
-        <Link to='forget-password' className="block text-center my-5 text-slate-500 uppercase text-sm">Olvide mi contraseña?</Link>
+        <Link to='/register' className="block text-center my-5 text-slate-500 uppercase text-sm">No tienes cuenta?</Link>
+        <Link to='/forget-password' className="block text-center my-5 text-slate-500 uppercase text-sm">Olvide mi contraseña?</Link>
       </nav>
     </>
   )
