@@ -1,8 +1,7 @@
 import {Link} from 'react-router-dom'
 import {useState} from 'react'
 import Mensaje from '../components/Mensaje';
-import axios from 'axios';
-import { VITE_URL_API } from '../utils';
+import clienteAxios from '../config/Axios';
 const Register = () => {
   const [nombre, setnombre] = useState('')
   const [email, setemail] = useState('')
@@ -41,13 +40,11 @@ const Register = () => {
 
 
     const registerUser = async(name='',email='',password='') =>{
-      const url=VITE_URL_API;
-      console.log(url)
       const info={
         name,email,password
       }
       try {
-        const {status,data} =await axios.post(url+'/users',info);
+        const {status,data} =await clienteAxios.post('/users',info);
         if(status ===202){
           setalerta({msg:data.msg,error:false})
         }

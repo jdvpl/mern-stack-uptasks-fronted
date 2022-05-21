@@ -1,8 +1,8 @@
 import {useEffect,useState} from 'react'
 import {useParams,Link} from 'react-router-dom';
-import axios from 'axios';
 import Mensaje from '../components/Mensaje';
-import { VITE_URL_API } from '../utils';
+import clienteAxios from '../config/Axios';
+
 const NewPassword = () => {
   const [alerta, setalerta] = useState({})
   const [validToken, setvalidToken] = useState(false);
@@ -17,10 +17,8 @@ const NewPassword = () => {
   }, [])
 
   const validateToken = async () => {
-    const url=VITE_URL_API+'/users/forget-password/'+token;
-    console.log(url)
     try {
-      await axios(url);
+      await clienteAxios('/users/forget-password/'+token);
       setvalidToken(true);
     } catch (e) {
       const error=(e.response.data.errors)?e.response.data.errors[0].msg: e.response.data.msg;
@@ -61,10 +59,9 @@ const NewPassword = () => {
 
 
   const updatePassword=async(password)=>{
-    const url=VITE_URL_API+'/users/forget-password/'+token;
 
     try {
-      const {data}=await axios.post(url,{password});
+      const {data}=await clienteAxios.post('/users/forget-password/'+token,{password});
       setalerta({
         msg:data.msg,
         error:false

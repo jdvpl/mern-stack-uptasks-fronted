@@ -1,9 +1,7 @@
-import axios from 'axios';
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import Mensaje from '../components/Mensaje';
-import { VITE_URL_API } from '../utils';
-
+import clienteAxios from '../config/Axios';
 
 const ForgetPassword = () => {
   const [email, setemail] = useState('');
@@ -24,17 +22,16 @@ const ForgetPassword = () => {
 
 
   const sendEmail = async(email) => {
-    const url=VITE_URL_API+'/users/forgotpassword';
-    console.log(url)
     try {
-      const {data}=await axios.post(url,{email});
+      const {data}=await <clienteAxios></clienteAxios>.post('/users/forgotpassword',{email});
       setalerta({
         msg:data.msg,
         error:false
-      })
+      })  
     } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setalerta({
-        msg:e.response.data.errors[0].msg?? e.response.data.msg,
+        msg:error,
         error:true
       })
     }
