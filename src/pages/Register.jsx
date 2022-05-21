@@ -13,7 +13,6 @@ const Register = () => {
 
   const handleSubmit=(e) => {
     e.preventDefault();
-
     if([nombre,email,password,repetirpassword].includes('')){
       setalerta({
         msg:'Todos los campos son obligatorios',
@@ -21,7 +20,6 @@ const Register = () => {
       })
       return;
     }
-
     if(password !== repetirpassword){
       setalerta({
         msg:'Las contraseñas no coinciden',
@@ -36,9 +34,7 @@ const Register = () => {
       })
       return;
     }
-
     registerUser(nombre,email,password);
-
     setalerta({});
     // crear usuario en la api
   }
