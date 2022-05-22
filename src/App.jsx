@@ -7,6 +7,8 @@ import NewPassword from './pages/NewPassword'
 import Register from './pages/Register'
 
 import {AuthProvider} from './context/AuthProvider'
+import ProtectedRoute from './layouts/ProtectedRoute'
+import Projects from './pages/private/Projects'
 
 function App() {
   
@@ -20,6 +22,10 @@ function App() {
           <Route path='forget-password' element={<ForgetPassword/>} />
           <Route path='forget-password/:token' element={<NewPassword/>} />
           <Route path='confirm/:id' element={<AccountConfirmation/>} />
+        </Route>
+
+        <Route path='/projects' element={<ProtectedRoute />} >
+          <Route index element={<Projects/>}/>
         </Route>
       </Routes>
       </AuthProvider>
