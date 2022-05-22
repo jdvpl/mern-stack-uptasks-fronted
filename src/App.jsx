@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import AuthLayout from './layouts/AuthLayout'
 import AccountConfirmation from './pages/AccountConfirmation'
@@ -6,10 +5,14 @@ import ForgetPassword from './pages/ForgetPassword'
 import Login from './pages/Login'
 import NewPassword from './pages/NewPassword'
 import Register from './pages/Register'
-function App() {
 
+import {AuthProvider} from './context/AuthProvider'
+
+function App() {
+  
   return (
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
         <Route path='/' element={<AuthLayout/>}>
           <Route index element={<Login/>} />
@@ -19,6 +22,7 @@ function App() {
           <Route path='confirm/:id' element={<AccountConfirmation/>} />
         </Route>
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   )
 }
