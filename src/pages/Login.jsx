@@ -9,6 +9,8 @@ const Login = () => {
   const [password, setpassword] = useState('');
   const [alerta, setalerta] = useState({});
 
+  const {setauth}=useAuth();
+
 
   const handleSubmit=(e) => {
     e.preventDefault();
@@ -17,7 +19,6 @@ const Login = () => {
         msg:'Todos los campos son obligatorios',
         error:true
       })
-
       return;
     }
     login(email, password);
@@ -28,6 +29,7 @@ const Login = () => {
       const {data}=await clienteAxios.post('/auth/login',{email,password})
       localStorage.setItem('token',data.token)
       setalerta({})
+      setauth(data)
     } catch (e) {
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setalerta({
