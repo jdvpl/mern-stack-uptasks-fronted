@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     if([password.trim(), email.trim()].includes('')){
       setalerta({
-        msg:'Todos los campos son obligatorios',
+        msg:'Every field is required',
         error:true
       })
       return;
@@ -42,7 +42,7 @@ const Login = () => {
   const {msg}=alerta;
   return (
     <>
-      <h1 className="text-sky-600 font-black text-5xl text-center">Iniciar sesion y administra tus {""}<span className="text-slate-700"> proyectos</span></h1>
+      <h1 className="text-sky-600 font-black text-5xl text-center">Login and manage your {""}<span className="text-slate-700"> projects</span></h1>
 
       {msg && <Mensaje alerta={alerta}/>}
       <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
@@ -60,8 +60,8 @@ const Login = () => {
       </form>
 
       <nav className="lg:flex lg:justify-between ">
-        <Link to='/register' className="block text-center my-5 text-slate-500 uppercase text-sm">No tienes cuenta?</Link>
-        <Link to='/forget-password' className="block text-center my-5 text-slate-500 uppercase text-sm">Olvide mi contraseña?</Link>
+        <Link to='/register' className="block text-center my-5 text-slate-500 uppercase text-sm">Don't have an account yet?</Link>
+        <Link to='/forget-password' className="block text-center my-5 text-slate-500 uppercase text-sm">Forgot my password?</Link>
       </nav>
     </>
   )

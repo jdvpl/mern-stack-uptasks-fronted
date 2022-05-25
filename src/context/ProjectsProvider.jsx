@@ -7,12 +7,27 @@ const ProjectsContext =createContext();
 
 
 const ProjectsProvider=({children})=>{
-  const [projects, setprojects] = useState([{name:'saitama',lastName:'genos'}]);
+  const [projects, setprojects] = useState([]);
+  const [alert, setAlert] = useState([])
 
+  const showAlert = alert=>{
+    setAlert(alert)
+
+    setTimeout(()=>{
+      setAlert({})
+    },5000)
+  }
+
+  const postProject=async project=>{
+    console.log(project)
+  }
   return (
     <ProjectsContext.Provider
       value={{
-        projects
+        projects,
+        showAlert,
+        alert,
+        postProject
       }}
     >
       {children}

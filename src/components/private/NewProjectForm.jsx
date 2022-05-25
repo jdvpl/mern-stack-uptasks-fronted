@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import useProjects from '../../hooks/useProjects';
+import Mensaje from '../Mensaje';
 
 const NewProjectForm = () => {
   const [projectName, setprojectName] = useState('')
@@ -6,8 +8,31 @@ const NewProjectForm = () => {
   const [dateDelivery, setdateDelivery] = useState('')
   const [clientProject, setclientProject] = useState('');
 
+  // context global
+  const {showAlert,alert,postProject}=useProjects();
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    if([projectName,descriptionProject,dateDelivery,clientProject].includes('')){
+      showAlert({
+        msg:'Each field is required',
+        error: true
+      })
+      return;
+    }
+
+    // set data to provider
+    postProject({projectName, descriptionProject, dateDelivery, clientProject});
+  }
+
+  const {msg}=alert;
+
+
+
   return (
-    <form className="bg-white py-10 px-5 md:w-2/3 rounded-lg shadow">
+    <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow" onSubmit={handleSubmit}>
+
+      {msg && <Mensaje alerta={alert}/>}
       <div className="mb-5">
         <label htmlFor="name" className="text-gray-700 uppercase font-weight text-sm">Project Name</label>
         <input type="text" name="" id="name" className="border w-full p-2 mt-2 placeholder-gray-400 rounded-md" placeholder="Project Name" 

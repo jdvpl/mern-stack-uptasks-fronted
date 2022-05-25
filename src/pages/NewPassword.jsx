@@ -76,7 +76,7 @@ const NewPassword = () => {
   }
   return (
     <>
-    <h1 className="text-sky-600 font-black text-5xl text-center">Restablecer {""}<span className="text-slate-700"> contraseña</span></h1>
+    <h1 className="text-sky-600 font-black text-5xl text-center">Reset {""}<span className="text-slate-700"> password</span></h1>
     {msg && <Mensaje alerta={alerta}/>}
     {validToken && (
       <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
@@ -85,16 +85,16 @@ const NewPassword = () => {
         <input type="password" id="password" placeholder="Password" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={password} onChange={e=> setpassword(e.target.value)}/>
       </div>
       <div className="my-5">
-        <label htmlFor="repetirpassword" className="uppercase text-gray-600 block text-xl font-bold">Repetir password</label>
-        <input type="password" id="repetirpassword" placeholder="Repetir Password" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={repetirpassword} onChange={e =>setrepetirpassword(e.target.value)}/>
+        <label htmlFor="repetirpassword" className="uppercase text-gray-600 block text-xl font-bold">Password confirmation</label>
+        <input type="password" id="repetirpassword" placeholder="Password confirmation" className="w-full mt-3 p-3 border rounded-xl bg-gray-50" value={repetirpassword} onChange={e =>setrepetirpassword(e.target.value)}/>
       </div>
       
-      <input type="submit" value="Guarda nueva contraseña" className="bg-sky-700 w-full text-white font-bold rounded py-3 hover:cursor-pointer hover:bg-sky-800 transition-colors mb-5"/>
+      <input type="submit" value="Save" className="bg-sky-700 w-full text-white font-bold rounded py-3 hover:cursor-pointer hover:bg-sky-800 transition-colors mb-5"/>
     </form>
     )}
 
     <nav className="lg:flex lg:justify-center ">
-      <Link to='/' className="block text-center my-5 text-slate-500 uppercase text-sm"> Iniciar sesion</Link>
+      <Link to='/' className="block text-center my-5 text-slate-500 uppercase text-sm"> Login</Link>
     </nav>
   </>
   )
