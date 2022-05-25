@@ -7,12 +7,12 @@ const ProjectsContext =createContext();
 
 
 const ProjectsProvider=({children})=>{
-
+  const [projects, setprojects] = useState([{name:'saitama',lastName:'genos'}]);
 
   return (
     <ProjectsContext.Provider
       value={{
-
+        projects
       }}
     >
       {children}
