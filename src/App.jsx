@@ -6,16 +6,18 @@ import Login from './pages/Login'
 import NewPassword from './pages/NewPassword'
 import Register from './pages/Register'
 
-import {AuthProvider} from './context/AuthProvider'
 import ProtectedRoute from './layouts/ProtectedRoute'
 import Projects from './pages/private/Projects'
 import NewProject from './pages/private/NewProject'
 
+import {AuthProvider} from './context/AuthProvider'
+import {ProjectsProvider} from './context/ProjectsProvider'
 function App() {
   
   return (
     <BrowserRouter>
     <AuthProvider>
+    <ProjectsProvider>
       <Routes>
         <Route path='/' element={<AuthLayout/>}>
           <Route index element={<Login/>} />
@@ -30,6 +32,7 @@ function App() {
           <Route path='create-project' element={<NewProject/>}/>
         </Route>
       </Routes>
+      </ProjectsProvider>
       </AuthProvider>
     </BrowserRouter>
   )
