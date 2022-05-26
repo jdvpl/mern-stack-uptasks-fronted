@@ -27,12 +27,15 @@ const ProjectsProvider=({children})=>{
   const postProject=async project=>{
     try {
       const config =getTokenHeaders();
-      console.log(config)
       const {data}=await clienteAxios.post('/projects',project,config);
+
+      setprojects([...projects,data.project])
+
       setAlert({
         msg:data.msg,
         error:false
       })
+      
       setTimeout(()=>{
         setAlert({})
         navigate('/projects')
