@@ -9,7 +9,10 @@ const ProjectsContext =createContext();
 
 const ProjectsProvider=({children})=>{
   const [projects, setprojects] = useState([]);
-  const [alert, setAlert] = useState([])
+  const [alert, setAlert] = useState({})
+  const [project, setproject] = useState({});
+  const [loadingProject, setloadingProject] = useState(false);
+
   const navigate=useNavigate();
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const ProjectsProvider=({children})=>{
       setAlert({})
     },5000)
   }
-
+  // create project
   const postProject=async project=>{
     try {
       const config =getTokenHeaders();
@@ -48,7 +51,7 @@ const ProjectsProvider=({children})=>{
       })
     }
   }
-
+  // /get all projects
   const getProjects = async ()=>{
     try {
       const config =getTokenHeaders();
@@ -58,13 +61,17 @@ const ProjectsProvider=({children})=>{
       console.log(error);
     }
   }
+  // get project
   const getProject = async (id)=>{
+    setloadingProject(true);
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios(`/projects/${id}`,config);
-      console.log(data);
+      setproject(data);
     } catch (error) {
       console.log(error);
+    }finally{
+      setloadingProject(false);
     }
   }
 
@@ -76,7 +83,9 @@ const ProjectsProvider=({children})=>{
         showAlert,
         alert,
         postProject,
-        getProject
+        getProject,
+        project,
+        loadingProject
       }}
     >
       {children}
