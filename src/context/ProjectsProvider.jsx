@@ -58,13 +58,25 @@ const ProjectsProvider=({children})=>{
       console.log(error);
     }
   }
+  const getProject = async (id)=>{
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios(`/projects/${id}`,config);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // provider
   return (
     <ProjectsContext.Provider
       value={{
         projects,
         showAlert,
         alert,
-        postProject
+        postProject,
+        getProject
       }}
     >
       {children}
