@@ -1,6 +1,7 @@
 import {useState,useEffect,createContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
+import { getTokenHeaders } from '../utils';
 
 
 const ProjectsContext =createContext();
@@ -10,6 +11,10 @@ const ProjectsProvider=({children})=>{
   const [projects, setprojects] = useState([]);
   const [alert, setAlert] = useState([])
   const navigate=useNavigate();
+
+  useEffect(() => {
+    getProjects()
+  }, []);
 
   const showAlert = alert=>{
     setAlert(alert)
@@ -21,16 +26,8 @@ const ProjectsProvider=({children})=>{
 
   const postProject=async project=>{
     try {
-      const token=localStorage.getItem('token');
-      if(!token) return;
-      const config ={
-        headers:{
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-
+      const config =getTokenHeaders();
+      console.log(config)
       const {data}=await clienteAxios.post('/projects',project,config);
       setAlert({
         msg:data.msg,
@@ -46,6 +43,16 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+    }
+  }
+
+  const getProjects = async ()=>{
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios('/projects',config);
+      setprojects(data.projects)
+    } catch (error) {
+      console.log(error);
     }
   }
   return (
