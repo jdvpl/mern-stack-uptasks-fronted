@@ -13,7 +13,8 @@ import NewProject from './pages/private/NewProject'
 import {AuthProvider} from './context/AuthProvider'
 import {ProjectsProvider} from './context/ProjectsProvider'
 import Project from './pages/private/Project'
-import EditProject from './components/private/EditProject'
+import EditProject from './pages/private/EditProject'
+
 function App() {
   
   return (

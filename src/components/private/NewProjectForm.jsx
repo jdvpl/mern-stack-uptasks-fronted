@@ -1,15 +1,28 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import useProjects from '../../hooks/useProjects';
 import Mensaje from '../Mensaje';
+import {useParams} from 'react-router-dom';
 
 const NewProjectForm = () => {
   const [name, setname] = useState('')
+  const [id, setid] = useState(null)
   const [description, setdescription] = useState('');
   const [dateDelivery, setdateDelivery] = useState('')
   const [client, setclient] = useState('');
 
+  const params=useParams();
   // context global
-  const {showAlert,alert,postProject}=useProjects();
+  const {showAlert,alert,postProject, project}=useProjects();
+
+  useEffect(() => {
+      if(params.id){
+        setid(project.uid)
+        setname(project.name);
+        setdescription(project.description);
+        setdateDelivery(project.dateDelivery?.split('.')[0]);
+        setclient(project.client);
+      }
+  }, [params])
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -30,6 +43,8 @@ const NewProjectForm = () => {
   }
 
   const {msg}=alert;
+
+
 
 
 
@@ -62,7 +77,7 @@ const NewProjectForm = () => {
         onChange={e => setclient(e.target.value)}/>
       </div>
 
-      <input type="submit" className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors" value='New project' />
+      <input type="submit" className="bg-sky-600 w-full p-3 uppercase font-bold text-white rounded cursor-pointer hover:bg-sky-700 transition-colors" value={id?'Update Proejct':'Create project'} />
     </form>
   )
 }
