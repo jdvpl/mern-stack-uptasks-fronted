@@ -108,6 +108,20 @@ const ProjectsProvider=({children})=>{
       setloadingProject(false);
     }
   }
+  // delete project
+  const deleteProject = async (id)=>{
+    console.log("deleting",id);
+    return;
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.delete(`/projects/${id}`,config);
+      setproject(data);
+    } catch (error) {
+      console.log(error);
+    }finally{
+      setloadingProject(false);
+    }
+  }
 
   // provider
   return (
@@ -119,7 +133,8 @@ const ProjectsProvider=({children})=>{
         submitProject,
         getProject,
         project,
-        loadingProject
+        loadingProject,
+        deleteProject
       }}
     >
       {children}
