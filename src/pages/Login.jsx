@@ -10,7 +10,7 @@ const Login = () => {
   const [alerta, setalerta] = useState({});
 
   const {setauth}=useAuth();
-
+  const navigate=useNavigate();
 
   const handleSubmit=(e) => {
     e.preventDefault();
@@ -27,9 +27,10 @@ const Login = () => {
   const login = async(email, password) => {
     try {
       const {data}=await clienteAxios.post('/auth/login',{email,password})
-      localStorage.setItem('token',data.token)
       setalerta({})
-      setauth(data)
+      localStorage.setItem('token',data.token)
+      setauth(data.user)
+      navigate('/projects')
     } catch (e) {
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setalerta({
