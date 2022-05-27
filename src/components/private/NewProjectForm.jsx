@@ -12,7 +12,7 @@ const NewProjectForm = () => {
 
   const params=useParams();
   // context global
-  const {showAlert,alert,postProject, project}=useProjects();
+  const {showAlert,alert, submitProject, project}=useProjects();
 
   useEffect(() => {
       if(params.id){
@@ -35,7 +35,8 @@ const NewProjectForm = () => {
     }
 
     // set data to provider
-    await postProject({name, description, dateDelivery,  client});
+    await submitProject({id,name, description, dateDelivery,  client});
+    setid(null);
     setname('')
     setdescription('')
     setdateDelivery('')
@@ -43,10 +44,6 @@ const NewProjectForm = () => {
   }
 
   const {msg}=alert;
-
-
-
-
 
   return (
     <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow" onSubmit={handleSubmit}>

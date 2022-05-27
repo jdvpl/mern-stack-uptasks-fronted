@@ -27,12 +27,47 @@ const ProjectsProvider=({children})=>{
     },5000)
   }
   // create project
-  const postProject=async project=>{
+  const submitProject=async project=>{
+    if(project.id){
+      await updateProject(project)
+    }else{
+      await createProject(project)
+    }
+  }
+  const createProject=async (project) => {
+
     try {
       const config =getTokenHeaders();
       const {data}=await clienteAxios.post('/projects',project,config);
 
       setprojects([...projects,data.project])
+
+      setAlert({
+        msg:data.msg,
+        error:false
+      })
+      
+      setTimeout(()=>{
+        setAlert({})
+        navigate('/projects')
+      },3000)
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }
+  }
+  const updateProject=async project=>{
+
+    try {
+      const config =getTokenHeaders();
+      const {data}=await clienteAxios.put(`/projects/${project.id}`,project,config);
+
+      const projectsUpdated=projects.map(projectState=> projectState.uid==data.project.uid?data.project:projectState);
+
+      setprojects(projectsUpdated);
 
       setAlert({
         msg:data.msg,
@@ -81,7 +116,7 @@ const ProjectsProvider=({children})=>{
         projects,
         showAlert,
         alert,
-        postProject,
+        submitProject,
         getProject,
         project,
         loadingProject
