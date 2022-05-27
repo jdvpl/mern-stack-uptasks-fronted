@@ -110,16 +110,23 @@ const ProjectsProvider=({children})=>{
   }
   // delete project
   const deleteProject = async (id)=>{
-    console.log("deleting",id);
-    return;
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.delete(`/projects/${id}`,config);
-      setproject(data);
+      
+      const projectsUpdated=projects.filter(projectState=> projectState.uid !== id);
+      setprojects(projectsUpdated)
+      setAlert({
+        msg:data.msg,
+        error:false
+      })
+      // setproject(data);
+      setTimeout(()=>{
+        setAlert({})
+        navigate('/projects')
+      },2000)
     } catch (error) {
       console.log(error);
-    }finally{
-      setloadingProject(false);
     }
   }
 

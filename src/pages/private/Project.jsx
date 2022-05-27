@@ -3,9 +3,10 @@ import useProjects from '../../hooks/useProjects';
 import {useEffect} from 'react';
 
 import {Link} from 'react-router-dom';
+import Mensaje from '../../components/Mensaje';
 
 const Project = () => {
-  const {getProject,project,loadingProject,deleteProject}=useProjects();
+  const {getProject,project,loadingProject,deleteProject,alert}=useProjects();
   
   const {id:idRouter}=useParams();
   
@@ -18,6 +19,9 @@ const Project = () => {
     }
   }
   const {name,description,dateDelivery,client}=project;
+
+  const {msg}=alert;
+  
   return (
     loadingProject ? (
       <div className="border border-blue-200 shadow rounded-md p-4 max-w-sm w-full mx-auto">
@@ -36,9 +40,13 @@ const Project = () => {
           </div>
         </div>
     ) : (
+      <>
+      
+      {msg && <Mensaje alerta={alert}/>}
+      
       <div className="flex justify-between">
       <h1 className="font-black text-4xl">{name}</h1>
-
+      
       <div className="flex items-center gap-2 text-gray-400 hover:text-black uppercase font-bold">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -54,6 +62,7 @@ const Project = () => {
       </div>
       </div>
     </div>
+    </>
     )
     )
 
