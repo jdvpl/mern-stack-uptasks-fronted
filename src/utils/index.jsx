@@ -9,3 +9,5 @@ export const getTokenHeaders =()=>{
       }
       return config;
 }
+
+export const PRIORITY=['Low','Medium','High'];

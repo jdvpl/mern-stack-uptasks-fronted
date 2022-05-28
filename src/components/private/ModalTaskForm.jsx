@@ -1,13 +1,38 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import useProjects from '../../hooks/useProjects'
+import { PRIORITY } from '../../utils';
+import Mensaje from '../Mensaje';
 
 
 
-const ModalTaskForm = ({modal,setmodal}) => {
+const ModalTaskForm = () => {
 
+    const [name, setname] = useState('');
+    const [description, setdescription] = useState('');
+    const [priority, setpriority] = useState('');
+
+    const{handleTaskForm,modalPopupTaskForm,showAlert,alert,submitTask}=useProjects();
+
+    const handleSubmit=(e) => {
+        e.preventDefault();
+
+        if([name, priority,description].includes('')){
+            showAlert({
+                msg:'All fields are required',
+                error: true,
+            })
+            return;
+        }
+
+        submitTask({name, priority, description})
+
+    }
+
+    const {msg}=alert;
     return (
-        <Transition.Root show={modal} as={Fragment}>
-            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ ()=>setmodal(false)}>
+        <Transition.Root show={modalPopupTaskForm} as={Fragment}>
+            <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={ handleTaskForm }>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
@@ -44,7 +69,7 @@ const ModalTaskForm = ({modal,setmodal}) => {
                                 <button
                                     type="button"
                                     className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                    onClick={()=>setmodal(false)}
+                                    onClick={handleTaskForm}
                                 >
                                 <span className="sr-only">Close</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -57,9 +82,30 @@ const ModalTaskForm = ({modal,setmodal}) => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                          <h1 className="text-4xl">Title g</h1>
+                                        Create Task
                                     </Dialog.Title>
-                                  <p>Content</p>
+                                    {msg&& <Mensaje alerta={alert}/>}
+                                <form className='my-10' onSubmit={handleSubmit}>
+                                    <div className="mb-5">
+                                        <label htmlFor="name" className="text-gray-700 uppercase font-weight text-sm">Task Name</label>
+                                        <input type="text" id="name" className="border-2 p-2 w-full mt-2 placeholder-gray-400 rounded-md" placeholder="task name" value={name} onChange={e=>setname(e.target.value)}/>
+                                    </div>
+                                    <div className="mb-5">
+                                        <label htmlFor="description" className="text-gray-700 uppercase font-weight text-sm">Task Description</label>
+                                        <textarea  id="description" className="border-2 p-2 w-full mt-2 placeholder-gray-400 rounded-md" placeholder="task description" value={description} onChange={e=>setdescription(e.target.value)}/>
+                                    </div>
+                                    <div className="mb-5">
+                                        <label htmlFor="priority" className="text-gray-700 uppercase font-weight text-sm">Priority</label>
+                                        <select  id="priority" className="border-2 p-2 w-full mt-2 placeholder-gray-400 rounded-md"  value={priority} onChange=
+                                        {e=>setpriority(e.target.value)} >
+                                            <option value="">Select</option>
+                                            {PRIORITY.map(option =>(
+                                                <option key={option}>{option}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <input type="submit" className="bg-sky-600 hover:bg-sky-700 text-white p-3 w-full  uppercase font-bold cursor-pointer transition-colors rounded text-sm" value="submit" />
+                                </form>
                                 </div>
                             </div>
                         </div>
