@@ -21,7 +21,6 @@ const Project = () => {
     }
   }
   const {name,description,dateDelivery,client}=project;
-
   const {msg}=alert;
   
   return (

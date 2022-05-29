@@ -136,7 +136,16 @@ const ProjectsProvider=({children})=>{
   }
 
   const submitTask=async task => {
-    console.log(task)
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.post(`/tasks`,task,config);
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }
   }
 
   // provider

@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import useProjects from '../../hooks/useProjects'
 import { PRIORITY } from '../../utils';
 import Mensaje from '../Mensaje';
@@ -7,17 +8,18 @@ import Mensaje from '../Mensaje';
 
 
 const ModalTaskForm = () => {
-
+    const {id}=useParams();
     const [name, setname] = useState('');
     const [description, setdescription] = useState('');
     const [priority, setpriority] = useState('');
+    const [dateDelivery, setdateDelivery] = useState('');
 
     const{handleTaskForm,modalPopupTaskForm,showAlert,alert,submitTask}=useProjects();
 
     const handleSubmit=(e) => {
         e.preventDefault();
 
-        if([name, priority,description].includes('')){
+        if([name, priority,description,dateDelivery].includes('')){
             showAlert({
                 msg:'All fields are required',
                 error: true,
@@ -25,7 +27,7 @@ const ModalTaskForm = () => {
             return;
         }
 
-        submitTask({name, priority, description})
+        submitTask({name, priority, description,dateDelivery,project:id});
 
     }
 
@@ -93,6 +95,10 @@ const ModalTaskForm = () => {
                                     <div className="mb-5">
                                         <label htmlFor="description" className="text-gray-700 uppercase font-weight text-sm">Task Description</label>
                                         <textarea  id="description" className="border-2 p-2 w-full mt-2 placeholder-gray-400 rounded-md" placeholder="task description" value={description} onChange={e=>setdescription(e.target.value)}/>
+                                    </div>
+                                    <div className="mb-5">
+                                        <label htmlFor="date" className="text-gray-700 uppercase font-weight text-sm">Date Delivery</label>
+                                        <input type='datetime-local'  id="date" className="border-2 p-2 w-full mt-2 placeholder-gray-400 rounded-md"  value={dateDelivery} onChange={e=>setdateDelivery(e.target.value)}/>
                                     </div>
                                     <div className="mb-5">
                                         <label htmlFor="priority" className="text-gray-700 uppercase font-weight text-sm">Priority</label>
