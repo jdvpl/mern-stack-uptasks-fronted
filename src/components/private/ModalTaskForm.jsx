@@ -9,6 +9,7 @@ import Mensaje from '../Mensaje';
 
 const ModalTaskForm = () => {
     const {id}=useParams();
+    const [idTask, setidTask] = useState('')
     const [name, setname] = useState('');
     const [description, setdescription] = useState('');
     const [priority, setpriority] = useState('');
@@ -34,7 +35,19 @@ const ModalTaskForm = () => {
         setdateDelivery('')
     }
     useEffect(() => {
-        console.log(task)
+        if(task?._id){
+            setname(task.name)
+            setidTask(task._id)
+            setdescription(task.description)
+            setdateDelivery(task.dateDelivery?.split('.')[0])
+            setpriority(task.priority);
+            return;
+        }
+        setname('')
+        setdescription('')
+        setpriority('')
+        setdateDelivery('')
+        setidTask('')
     }, [task]);
 
     const {msg}=alert;
@@ -90,7 +103,7 @@ const ModalTaskForm = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        Create Task
+                                        {idTask?`Edit ${task?.name}`:'Create task'}
                                     </Dialog.Title>
                                     {msg&& <Mensaje alerta={alert}/>}
                                 <form className='my-10' onSubmit={handleSubmit}>
@@ -116,7 +129,7 @@ const ModalTaskForm = () => {
                                             ))}
                                         </select>
                                     </div>
-                                    <input type="submit" className="bg-sky-600 hover:bg-sky-700 text-white p-3 w-full  uppercase font-bold cursor-pointer transition-colors rounded text-sm" value="submit" />
+                                    <input type="submit" className="bg-sky-600 hover:bg-sky-700 text-white p-3 w-full  uppercase font-bold cursor-pointer transition-colors rounded text-sm" value={ idTask? 'Edit':'submit'} />
                                 </form>
                                 </div>
                             </div>

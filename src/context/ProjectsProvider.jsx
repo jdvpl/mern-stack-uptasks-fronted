@@ -133,6 +133,7 @@ const ProjectsProvider=({children})=>{
 
   const handleTaskForm=()=>{
     setmodalTaskForm(!modalPopupTaskForm);
+    settask({})
   }
 
   const submitTask=async task => {

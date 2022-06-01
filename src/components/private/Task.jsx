@@ -10,7 +10,7 @@ const Task = ({task}) => {
       <div>
         <p className="mb-1 text-xl">{name}</p>
         <p className="mb-1 text-sm text-gray-500 ">{description}</p>
-        <p className="mb-1 text-xl">{dateFormat(dateDelivery)}</p>
+        <p className="mb-1 text-sm">{dateFormat(dateDelivery)}</p>
         <p className="mb-1 text-xl">Priority: {priority}</p>
       </div>
       <div className="flex gap-2">
