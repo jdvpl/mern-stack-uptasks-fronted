@@ -138,6 +138,11 @@ const ProjectsProvider=({children})=>{
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.post(`/tasks`,task,config);
+      const projectupdated={...project};
+      projectupdated.tasks=[...projectupdated.tasks,data];
+      setproject(projectupdated);
+      setAlert({})
+      setmodalTaskForm(false);
     } catch (e) {
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setAlert({

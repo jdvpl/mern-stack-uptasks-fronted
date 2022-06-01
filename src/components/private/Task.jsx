@@ -11,7 +11,6 @@ const Task = ({task}) => {
         <p className="mb-1 text-sm text-gray-500 ">{description}</p>
         <p className="mb-1 text-xl">{dateFormat(dateDelivery)}</p>
         <p className="mb-1 text-xl">Priority: {priority}</p>
-        <p className="mb-1 text-xl">Status: {finished?'Finished':'Unfinished'}</p>
       </div>
       <div className="flex gap-2">
         <button className="bg-indigo-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg">
@@ -22,13 +21,13 @@ const Task = ({task}) => {
           finished ?
           (
             <button className="bg-sky-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg">
-              Finish
+              Unfinish
             </button>
           )
           :
           (
             <button className="bg-gray-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg">
-            Unfinished
+            Finish
             </button>
           )
         }
