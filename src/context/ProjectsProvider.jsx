@@ -191,6 +191,32 @@ const ProjectsProvider=({children})=>{
     settask(task);
     setdeleteModalTask(!deleteModalTask);
   }
+
+  const deleteTask=async () => {
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.delete(`/tasks/${task._id}`,config);
+      setAlert({
+        msg:data.msg,
+        error:false
+      })
+      const projectupdated={...project};
+      projectupdated.tasks=projectupdated.tasks.filter(t=> t._id !== task._id);
+      setproject(projectupdated)
+      setdeleteModalTask(false);
+      settask({})
+
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -210,7 +236,8 @@ const ProjectsProvider=({children})=>{
         handleEditTaskForm,
         task,
         handleDeleteTask,
-        deleteModalTask
+        deleteModalTask,
+        deleteTask
       }}
     >
       {children}
