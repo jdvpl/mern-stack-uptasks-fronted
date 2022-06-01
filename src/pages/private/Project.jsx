@@ -5,6 +5,7 @@ import {useEffect,useState} from 'react';
 import {Link} from 'react-router-dom';
 import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
+import Task from '../../components/private/Task';
 
 const Project = () => {
   const [modal, setmodal] = useState(false)
@@ -72,6 +73,17 @@ const Project = () => {
       </svg>
         Add Task
         </button>
+        <p className="font-bold text-xl mt-10 ">Project Tasks</p>
+        <div className="shadow mt-1o rounded-lg">
+          {project.tasks?.length ? 
+          project.tasks?.map(task => (
+            <Task
+              key={task._id}
+              task={task}
+            />
+          )).sort()
+           :<p className="font-bold text-center my-5 p-10">No hay tareas.</p>}
+        </div>
         <ModalTaskForm modal={modal} setmodal={setmodal}/>
     </>
     )

@@ -8,6 +8,7 @@ const ProjectsContext =createContext();
 
 
 const ProjectsProvider=({children})=>{
+
   const [projects, setprojects] = useState([]);
   const [alert, setAlert] = useState({})
   const [project, setproject] = useState({});
@@ -16,9 +17,7 @@ const ProjectsProvider=({children})=>{
 
   const navigate=useNavigate();
 
-  useEffect(() => {
-    getProjects()
-  }, []);
+  
 
   const showAlert = alert=>{
     setAlert(alert)
@@ -162,7 +161,8 @@ const ProjectsProvider=({children})=>{
         deleteProject,
         handleTaskForm,
         modalPopupTaskForm,
-        submitTask
+        submitTask,
+        getProjects
       }}
     >
       {children}
