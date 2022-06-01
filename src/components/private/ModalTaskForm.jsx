@@ -28,8 +28,9 @@ const ModalTaskForm = () => {
             return;
         }
 
-        await submitTask({name, priority, description,dateDelivery,project:id});
+        await submitTask({id:idTask,name, priority, description,dateDelivery,project:id});
         setname('')
+        setidTask('')
         setdescription('')
         setpriority('')
         setdateDelivery('')

@@ -15,10 +15,10 @@ const ProjectsProvider=({children})=>{
   const [loadingProject, setloadingProject] = useState(false);
   const [modalPopupTaskForm, setmodalTaskForm] = useState(false);
   const [task, settask] = useState({});
+  const [deleteModalTask, setdeleteModalTask] = useState(false);
 
   const navigate=useNavigate();
 
-  
 
   const showAlert = alert=>{
     setAlert(alert)
@@ -137,6 +137,16 @@ const ProjectsProvider=({children})=>{
   }
 
   const submitTask=async task => {
+
+    if (task?.id){
+     await updateTask(task);
+    }else{
+     await createTask(task);
+    }
+   
+  }
+
+  const createTask= async task=>{
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.post(`/tasks`,task,config);
@@ -153,9 +163,33 @@ const ProjectsProvider=({children})=>{
       })
     }
   }
+
+  const updateTask=async task => {
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.put(`/tasks/${task.id}`,task,config);
+      console.log(data)
+      const projectupdated={...project};
+      projectupdated.tasks=projectupdated.tasks.map(t => t._id===data._id?data:t);
+      setproject(projectupdated);
+      setAlert({})
+      setmodalTaskForm(false);
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }
+  }
   const handleEditTaskForm=task=>{
     settask(task);
     setmodalTaskForm(true)
+  }
+
+  const handleDeleteTask=task=>{
+    settask(task);
+    setdeleteModalTask(!deleteModalTask);
   }
   // provider
   return (
@@ -174,7 +208,9 @@ const ProjectsProvider=({children})=>{
         submitTask,
         getProjects,
         handleEditTaskForm,
-        task
+        task,
+        handleDeleteTask,
+        deleteModalTask
       }}
     >
       {children}

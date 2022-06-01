@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
 import Task from '../../components/private/Task';
+import ModalDeleteTask from '../../components/private/ModalDeleteTask';
 
 const Project = () => {
 const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
@@ -80,8 +81,9 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
               task={task}
             />
           )).sort()
-           :<p className="font-bold text-center my-5 p-10">No hay tareas.</p>}
+            :<p className="font-bold text-center my-5 p-10">No hay tareas.</p>}
         </div>
+        <ModalDeleteTask/>
         <ModalTaskForm/>
     </>
     )
