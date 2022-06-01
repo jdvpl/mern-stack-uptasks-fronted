@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useState,useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import useProjects from '../../hooks/useProjects'
 import { PRIORITY } from '../../utils';
@@ -14,7 +14,7 @@ const ModalTaskForm = () => {
     const [priority, setpriority] = useState('');
     const [dateDelivery, setdateDelivery] = useState('');
 
-    const{handleTaskForm,modalPopupTaskForm,showAlert,alert,submitTask}=useProjects();
+    const{handleTaskForm,modalPopupTaskForm,showAlert,alert,submitTask,task}=useProjects();
 
     const handleSubmit=async(e) => {
         e.preventDefault();
@@ -33,6 +33,9 @@ const ModalTaskForm = () => {
         setpriority('')
         setdateDelivery('')
     }
+    useEffect(() => {
+        console.log(task)
+    }, [task]);
 
     const {msg}=alert;
     return (

@@ -1,15 +1,13 @@
 import {useParams} from 'react-router-dom'
 import useProjects from '../../hooks/useProjects';
-import {useEffect,useState} from 'react';
-
+import {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
 import Task from '../../components/private/Task';
 
 const Project = () => {
-  const [modal, setmodal] = useState(false)
-  const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
+const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
   
   const {id:idRouter}=useParams();
   
@@ -84,7 +82,7 @@ const Project = () => {
           )).sort()
            :<p className="font-bold text-center my-5 p-10">No hay tareas.</p>}
         </div>
-        <ModalTaskForm modal={modal} setmodal={setmodal}/>
+        <ModalTaskForm/>
     </>
     )
     )
