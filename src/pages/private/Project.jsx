@@ -1,7 +1,6 @@
-import {useParams} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import useProjects from '../../hooks/useProjects';
 import {useEffect} from 'react';
-import {Link} from 'react-router-dom';
 import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
 import Task from '../../components/private/Task';
@@ -82,6 +81,14 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
             />
           )).sort()
             :<p className="font-bold text-center my-5 p-10">No hay tareas.</p>}
+        </div>
+        <div className="flex items-center justify-between mt-10">
+          <p className="font-bold text-xl">Collaborators.</p>
+          <Link 
+            to={`/projects/new-collaborator/${idRouter}`}
+            className='text-gray-400 uppercase font-bold hover:text-black'>
+          Add
+          </Link>
         </div>
         <ModalDeleteTask/>
         <ModalTaskForm/>
