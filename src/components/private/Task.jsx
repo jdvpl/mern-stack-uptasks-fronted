@@ -5,7 +5,7 @@ const Task = ({task}) => {
   
   const {name,finished,description,priority,dateDelivery,_id} = task
   return (
-    <div className={`${!finished?'bg-red-100':'bg-green-200'} border-b p-5 flex justify-between items-center mb-3 rounded-lg `}>
+    <div className={`${!finished?'bg-red-50':'bg-green-50'} border-b p-5 flex justify-between items-center  `}>
       <div>
         <p className="mb-1 text-xl">{name}</p>
         <p className="mb-1 text-sm text-gray-500 ">{description}</p>
