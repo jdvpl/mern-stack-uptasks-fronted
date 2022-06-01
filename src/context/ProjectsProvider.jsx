@@ -168,7 +168,6 @@ const ProjectsProvider=({children})=>{
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.put(`/tasks/${task.id}`,task,config);
-      console.log(data)
       const projectupdated={...project};
       projectupdated.tasks=projectupdated.tasks.map(t => t._id===data._id?data:t);
       setproject(projectupdated);
@@ -217,6 +216,10 @@ const ProjectsProvider=({children})=>{
       })
     }
   }
+
+  const submitCollaborator = async email=>{
+    console.log(email)
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -237,7 +240,8 @@ const ProjectsProvider=({children})=>{
         task,
         handleDeleteTask,
         deleteModalTask,
-        deleteTask
+        deleteTask,
+        submitCollaborator
       }}
     >
       {children}
