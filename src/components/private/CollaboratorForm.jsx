@@ -3,7 +3,7 @@ import useProjects from "../../hooks/useProjects";
 import Mensaje from "../Mensaje";
 
 const CollaboratorForm = () => {
-  const [email, setemail] = useState('kakaroto');
+  const [email, setemail] = useState('');
   const {showAlert,alert,submitCollaborator,loading}=useProjects();
   
   const handleSubmit =async e =>{

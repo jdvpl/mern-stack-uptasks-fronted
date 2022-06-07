@@ -232,8 +232,12 @@ const ProjectsProvider=({children})=>{
         error:true
       })
     }finally{
-      setloading(false);
+      setloadingProject(false);
     }
+  }
+
+  const addCollaborator= async email => {
+    console.log(email)
   }
   // provider
   return (
@@ -256,7 +260,9 @@ const ProjectsProvider=({children})=>{
         handleDeleteTask,
         deleteModalTask,
         deleteTask,
-        submitCollaborator
+        submitCollaborator,
+        collaborator,
+        addCollaborator
       }}
     >
       {children}
