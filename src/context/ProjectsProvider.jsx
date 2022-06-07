@@ -16,6 +16,7 @@ const ProjectsProvider=({children})=>{
   const [modalPopupTaskForm, setmodalTaskForm] = useState(false);
   const [task, settask] = useState({});
   const [deleteModalTask, setdeleteModalTask] = useState(false);
+  const [collaborator, setcollaborator] = useState({})
 
   const navigate=useNavigate();
 
@@ -218,7 +219,21 @@ const ProjectsProvider=({children})=>{
   }
 
   const submitCollaborator = async email=>{
-    console.log(email)
+    setloadingProject(true);
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.post('/projects/collaborators',{email},config);
+      setcollaborator(data);
+      setAlert({})
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }finally{
+      setloading(false);
+    }
   }
   // provider
   return (
