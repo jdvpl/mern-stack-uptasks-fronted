@@ -104,8 +104,12 @@ const ProjectsProvider=({children})=>{
       const config =getTokenHeaders();
       const {data} = await clienteAxios(`/projects/${id}`,config);
       setproject(data);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
     }finally{
       setloadingProject(false);
     }
@@ -237,7 +241,25 @@ const ProjectsProvider=({children})=>{
   }
 
   const addCollaborator= async email => {
-    console.log(email)
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.post(`/projects/collaborators/${project.uid}`,email,config);
+      setAlert({
+        msg: data.msg,
+        error:false
+      })
+      setcollaborator({})
+      setTimeout(()=>{
+        setAlert({})
+      },2000)
+    } catch (e) {
+
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }
   }
   // provider
   return (
