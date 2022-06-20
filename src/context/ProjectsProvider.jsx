@@ -268,8 +268,31 @@ const ProjectsProvider=({children})=>{
     setdeleteCollaboratorModal(!deleteCollaboratorModal)
   }
 
-  const deleteCollaborator =()=>{
-    console.log(collaborator)
+  const deleteCollaborator =async()=>{
+  //  delete-collaborator
+  try {
+    const config =getTokenHeaders();
+    const {data} = await clienteAxios.post(`/projects/delete-collaborator/${project.uid}`,collaborator,config);
+    const projectupdated={...project};
+    projectupdated.collaborators=projectupdated.collaborators.filter(col=>col._id!==collaborator._id);
+    setproject(projectupdated);
+    setdeleteCollaboratorModal(false);
+    setAlert({
+      msg: data.msg,
+      error:false
+    })
+    setcollaborator({})
+    setTimeout(()=>{
+      setAlert({})
+    },2000)
+  } catch (e) {
+
+    const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+    setAlert({
+      msg:error,
+      error:true
+    })
+  }
   }
   // provider
   return (
