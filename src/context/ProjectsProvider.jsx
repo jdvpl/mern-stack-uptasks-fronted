@@ -95,7 +95,12 @@ const ProjectsProvider=({children})=>{
       const config =getTokenHeaders();
       const {data} = await clienteAxios('/projects',config);
       setprojects(data.projects)
-    } catch (error) {
+    } catch (e) {
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
     }
   }
   // get project
@@ -107,11 +112,15 @@ const ProjectsProvider=({children})=>{
       setproject(data);
       setAlert({})
     } catch (e) {
+      navigate('/projects');
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setAlert({
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }finally{
       setloadingProject(false);
     }

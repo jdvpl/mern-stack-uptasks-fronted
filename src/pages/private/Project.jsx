@@ -2,7 +2,6 @@ import {Link, useParams} from 'react-router-dom'
 import useProjects from '../../hooks/useProjects';
 import useAdmin from '../../hooks/useAdmin';
 import {useEffect} from 'react';
-import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
 import Task from '../../components/private/Task';
 import ModalDeleteTask from '../../components/private/ModalDeleteTask';
@@ -44,7 +43,6 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
           </div>
         </div>
     ) : (
-      msg && alert.error? <Mensaje alerta={alert}/>: (
       <>
       
       <div className="flex justify-between">
@@ -114,7 +112,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
         <ModalTaskForm/>
         <ModalDeleteCollaborator/>
     </>
-    )
+    
     )
     )
 

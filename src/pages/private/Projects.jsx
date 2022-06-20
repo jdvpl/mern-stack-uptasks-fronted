@@ -1,15 +1,18 @@
 import {useEffect} from 'react';
-
+import Mensaje from '../../components/Mensaje';
 import PreviewProject from '../../components/private/previewProject';
 import useProjects from '../../hooks/useProjects';
 
+
 const Projects = () => {
-  const {getProjects,projects}=useProjects();
+  const {getProjects,projects,alert}=useProjects();
   useEffect(() => {
     getProjects();
   }, []);
+  const {msg}=alert;
   return (
     <>
+      {msg && <Mensaje alerta={alert}/>}
       <h1 className="font-black text-4xl">Projects</h1>
       <div className="bg-white shadow rounded-lg mt-10">
         {projects.length ?  projects.map(project =>(
