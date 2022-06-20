@@ -42,9 +42,8 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
           </div>
         </div>
     ) : (
+      msg && alert.error? <Mensaje alerta={alert}/>: (
       <>
-      
-      {msg && <Mensaje alerta={alert}/>}
       
       <div className="flex justify-between">
       <h1 className="font-black text-4xl">{name}</h1>
@@ -106,6 +105,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
         <ModalTaskForm/>
         <ModalDeleteCollaborator/>
     </>
+    )
     )
     )
 

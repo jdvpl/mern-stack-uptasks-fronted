@@ -105,6 +105,7 @@ const ProjectsProvider=({children})=>{
       const config =getTokenHeaders();
       const {data} = await clienteAxios(`/projects/${id}`,config);
       setproject(data);
+      setAlert({})
     } catch (e) {
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setAlert({
