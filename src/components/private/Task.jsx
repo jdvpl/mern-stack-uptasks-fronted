@@ -5,7 +5,7 @@ import useAdmin from '../../hooks/useAdmin';
 
 const Task = ({task}) => {
   const admin=useAdmin();
-  const {handleEditTaskForm,handleDeleteTask}=useProjects();
+  const {handleEditTaskForm,handleDeleteTask,handleTaskSate}=useProjects();
   const {name,finished,description,priority,dateDelivery,_id} = task;
 
   return (
@@ -24,20 +24,10 @@ const Task = ({task}) => {
           Edit
         </button>
         )}
-        {
-          finished ?
-          (
-            <button className="bg-sky-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg">
-              Unfinish
+    
+        <button className={`${finished?'bg-sky-600':'bg-gray-600'} px-4 py-3 text-white uppercase font-bold text-sm rounded-lg`} onClick={()=>handleTaskSate(_id)}>
+        {finished ?'Unfinish':'Finish'}
             </button>
-          )
-          :
-          (
-            <button className="bg-gray-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg">
-            Finish
-            </button>
-          )
-        }
         {admin && (
         <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
           onClick={()=>handleDeleteTask(task)}

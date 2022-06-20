@@ -295,6 +295,32 @@ const ProjectsProvider=({children})=>{
     })
   }
   }
+
+  const handleTaskSate=async id => {
+
+    try {
+      const config =getTokenHeaders();
+      const {data} = await clienteAxios.post(`/tasks/status/${id}`,{},config);
+      const projectupdated={...project};
+      projectupdated.tasks=projectupdated.tasks.map(t=>t._id==data.task._id?data.task:t);
+      setproject(projectupdated);
+      settask({})
+      setAlert({
+        msg: data.msg,
+        error:false
+      })
+      setTimeout(()=>{
+        setAlert({})
+      },2000)
+    } catch (e) {
+  
+      const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
+      setAlert({
+        msg:error,
+        error:true
+      })
+    }
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -321,7 +347,8 @@ const ProjectsProvider=({children})=>{
         addCollaborator,
         handleDeleteModallCollaborator,
         deleteCollaboratorModal,
-        deleteCollaborator
+        deleteCollaborator,
+        handleTaskSate
       }}
     >
       {children}

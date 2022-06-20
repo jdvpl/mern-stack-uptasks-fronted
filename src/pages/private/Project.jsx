@@ -13,7 +13,6 @@ const Project = () => {
 const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
   
   const admin=useAdmin();
-  console.log(admin)
   const {id:idRouter}=useParams();
   
   useEffect(() => {
