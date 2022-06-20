@@ -7,8 +7,8 @@ const PreviewProject = ({project}) => {
   const {name,uid,description,dateDelivery,client,creator}=project;
 
   return (
-    <div className="border-b p-5 flex justify-between">
-      <div className="flex gap-2 items-center">
+    <div className="border-b p-5 flex flex-col md:flex-row justify-between">
+      <div className="flex gap-2 flex-col md:flex-row items-start">
       <p className="flex-1">{name}
 
         <span className="text-sm text-gray-500 uppercase">{""} {client}</span>

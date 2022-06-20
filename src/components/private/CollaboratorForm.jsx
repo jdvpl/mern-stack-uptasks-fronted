@@ -22,7 +22,7 @@ const CollaboratorForm = () => {
   }
   const {msg}=alert;
   return (
-    <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow" onSubmit={handleSubmit}>
+    <form className="bg-white py-10 px-5 w-full md:w-1/2 rounded-lg shadow" onSubmit={handleSubmit}>
       {msg && <Mensaje alerta={alert}/>}
       <div className="mb-5">
         <label htmlFor="email" className="text-gray-700 uppercase font-weight text-sm">Email</label>

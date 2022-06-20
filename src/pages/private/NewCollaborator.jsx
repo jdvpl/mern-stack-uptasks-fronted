@@ -27,14 +27,16 @@ const NewCollaborator = () => {
       <CollaboratorForm/>
       </div>
       {loadingProject? <Loading/> :collaborator.uid &&(
-        <div className="flex justify-center mt-10">
-          <div className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow">
+        <div className="flex  justify-center mt-10">
+          <div className="bg-white py-10 px-5 md:w-1/2 w-full rounded-lg shadow">
             <h2 className="text-center text-2xl font-bold">Result:</h2>
-            <div className="flex justify-between items-center">
-              <p className="text-muted">{collaborator.name}</p>
+            <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-col mb-2">
+              <p className="text-muted ">{collaborator.name}</p>
+              <p className="text-sm ">{collaborator.email}</p>
+            </div>
               <button type="button" className="bg-slate-500 px-5 py-2 text-white rounded-lg uppercase font-bold text-sm" onClick={()=>addCollaborator({email:collaborator.email})}>Add</button>
             </div>
-              <p className="text-sm">{collaborator.email}</p>
           </div>
         </div>
       )}

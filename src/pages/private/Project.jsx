@@ -14,7 +14,6 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
   const admin=useAdmin();
   const {id:idRouter}=useParams();
 
-  console.log(project)
   useEffect(() => {
     getProject(idRouter);
   }, [])
@@ -46,7 +45,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
     ) : (
       <>
       
-      <div className="flex justify-between">
+      <div className="flex md:flex-row flex-col justify-between">
       <h1 className="font-black text-4xl">{name}</h1>
       
       {admin &&(
