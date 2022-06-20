@@ -18,6 +18,7 @@ const ProjectsProvider=({children})=>{
   const [deleteModalTask, setdeleteModalTask] = useState(false);
   const [collaborator, setcollaborator] = useState({})
   const [deleteCollaboratorModal, setdeleteCollaboratorModal] = useState(false);
+  const [searcherInput, setsearcherInput] = useState(false);
 
   const navigate=useNavigate();
 
@@ -60,6 +61,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
   const updateProject=async project=>{
@@ -87,6 +91,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
   // /get all projects
@@ -101,6 +108,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
   // get project
@@ -177,6 +187,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
 
@@ -195,6 +208,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
   const handleEditTaskForm=task=>{
@@ -230,6 +246,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
 
@@ -246,6 +265,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }finally{
       setloadingProject(false);
     }
@@ -270,6 +292,9 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
   }
 
@@ -302,6 +327,9 @@ const ProjectsProvider=({children})=>{
       msg:error,
       error:true
     })
+    setTimeout(()=>{
+      setAlert({})
+    },3000)
   }
   }
 
@@ -328,8 +356,14 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
-      console.log(error);
+      setTimeout(()=>{
+        setAlert({})
+      },3000)
     }
+  }
+
+  const handleSearcherInput=()=>{
+    setsearcherInput(!searcherInput);
   }
   // provider
   return (
@@ -358,7 +392,9 @@ const ProjectsProvider=({children})=>{
         handleDeleteModallCollaborator,
         deleteCollaboratorModal,
         deleteCollaborator,
-        handleTaskSate
+        handleTaskSate,
+        handleSearcherInput,
+        searcherInput,
       }}
     >
       {children}
