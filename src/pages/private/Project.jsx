@@ -5,6 +5,8 @@ import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
 import Task from '../../components/private/Task';
 import ModalDeleteTask from '../../components/private/ModalDeleteTask';
+import Collaborator from './Collaborator';
+import ModalDeleteCollaborator from '../../components/private/ModalDeleteCollaborator';
 
 const Project = () => {
 const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
@@ -19,7 +21,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
       deleteProject(idRouter);
     }
   }
-  const {name,description,dateDelivery,client}=project;
+  const {name}=project;
   const {msg}=alert;
   
   return (
@@ -80,7 +82,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
               task={task}
             />
           )).sort()
-            :<p className="font-bold text-center my-5 p-10">No hay tareas.</p>}
+            :<p className="font-bold text-center my-5 p-10">No tasks.</p>}
         </div>
         <div className="flex items-center justify-between mt-10">
           <p className="font-bold text-xl">Collaborators.</p>
@@ -90,8 +92,19 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
           Add
           </Link>
         </div>
+        <div className="shadow mt-1o rounded-lg">
+        {project.collaborators?.length ? 
+          project.collaborators?.map(collaborator => (
+            <Collaborator
+              key={collaborator._id}
+              collaborator={collaborator}
+            />
+          )).sort()
+            :<p className="font-bold text-center my-5 p-10">No collaborators.</p>}
+        </div>
         <ModalDeleteTask/>
         <ModalTaskForm/>
+        <ModalDeleteCollaborator/>
     </>
     )
     )

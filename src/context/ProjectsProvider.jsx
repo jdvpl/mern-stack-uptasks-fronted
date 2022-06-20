@@ -17,6 +17,7 @@ const ProjectsProvider=({children})=>{
   const [task, settask] = useState({});
   const [deleteModalTask, setdeleteModalTask] = useState(false);
   const [collaborator, setcollaborator] = useState({})
+  const [deleteCollaboratorModal, setdeleteCollaboratorModal] = useState(false);
 
   const navigate=useNavigate();
 
@@ -261,6 +262,15 @@ const ProjectsProvider=({children})=>{
       })
     }
   }
+
+  const handleDeleteModallCollaborator=(collaborator)=>{
+    setcollaborator(collaborator)
+    setdeleteCollaboratorModal(!deleteCollaboratorModal)
+  }
+
+  const deleteCollaborator =()=>{
+    console.log(collaborator)
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -284,7 +294,10 @@ const ProjectsProvider=({children})=>{
         deleteTask,
         submitCollaborator,
         collaborator,
-        addCollaborator
+        addCollaborator,
+        handleDeleteModallCollaborator,
+        deleteCollaboratorModal,
+        deleteCollaborator
       }}
     >
       {children}
