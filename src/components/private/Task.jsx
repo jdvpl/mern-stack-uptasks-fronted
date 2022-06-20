@@ -1,8 +1,10 @@
 import React from 'react'
 import useProjects from '../../hooks/useProjects'
 import { dateFormat } from '../../utils/DateFormat'
+import useAdmin from '../../hooks/useAdmin';
 
 const Task = ({task}) => {
+  const admin=useAdmin();
   const {handleEditTaskForm,handleDeleteTask}=useProjects();
   const {name,finished,description,priority,dateDelivery,_id} = task;
 
@@ -15,12 +17,13 @@ const Task = ({task}) => {
         <p className="mb-1 text-xl">Priority: {priority}</p>
       </div>
       <div className="flex gap-2">
+        {admin && (
         <button className="bg-indigo-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
           onClick={() => handleEditTaskForm(task)}
         >
           Edit
         </button>
-
+        )}
         {
           finished ?
           (
@@ -35,11 +38,13 @@ const Task = ({task}) => {
             </button>
           )
         }
+        {admin && (
         <button className="bg-red-600 px-4 py-3 text-white uppercase font-bold text-sm rounded-lg"
           onClick={()=>handleDeleteTask(task)}
         >
           Delete
         </button>
+        )}
       </div>
     </div>
   )

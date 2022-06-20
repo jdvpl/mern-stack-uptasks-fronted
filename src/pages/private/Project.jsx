@@ -1,5 +1,6 @@
 import {Link, useParams} from 'react-router-dom'
 import useProjects from '../../hooks/useProjects';
+import useAdmin from '../../hooks/useAdmin';
 import {useEffect} from 'react';
 import Mensaje from '../../components/Mensaje';
 import ModalTaskForm from '../../components/private/ModalTaskForm';
@@ -11,6 +12,8 @@ import ModalDeleteCollaborator from '../../components/private/ModalDeleteCollabo
 const Project = () => {
 const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
   
+  const admin=useAdmin();
+  console.log(admin)
   const {id:idRouter}=useParams();
   
   useEffect(() => {
@@ -48,6 +51,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
       <div className="flex justify-between">
       <h1 className="font-black text-4xl">{name}</h1>
       
+      {admin &&(
       <div className="flex items-center gap-2 text-gray-400 hover:text-black uppercase font-bold">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -62,8 +66,9 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
           <button className="uppercase font-bold" onClick={deleteProjectHandle}>Delete</button>
       </div>
       </div>
-
+    )}
     </div>
+    { admin && (
       <button 
         onClick={handleTaskForm}
       type="button" className="uppercase font-bold text-sm px-5 py-3 w-full md:w-auto rounded-lg bg-sky-400 text-center text-white mt-5 flex gap-2 items-center justify-center" >
@@ -72,6 +77,7 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
       </svg>
         Add Task
         </button>
+        )}
         <p className="font-bold text-xl mt-10 ">Project Tasks</p>
         <div className="shadow mt-1o rounded-lg">
           {project.tasks?.length ? 
@@ -83,6 +89,8 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
           )).sort()
             :<p className="font-bold text-center my-5 p-10">No tasks.</p>}
         </div>
+        {admin && (
+          <>
         <div className="flex items-center justify-between mt-10">
           <p className="font-bold text-xl">Collaborators.</p>
           <Link 
@@ -101,6 +109,8 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
           )).sort()
             :<p className="font-bold text-center my-5 p-10">No collaborators.</p>}
         </div>
+          </>
+        )}
         <ModalDeleteTask/>
         <ModalTaskForm/>
         <ModalDeleteCollaborator/>
