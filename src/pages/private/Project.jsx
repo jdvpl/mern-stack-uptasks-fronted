@@ -13,7 +13,8 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
   
   const admin=useAdmin();
   const {id:idRouter}=useParams();
-  
+
+  console.log(project)
   useEffect(() => {
     getProject(idRouter);
   }, [])

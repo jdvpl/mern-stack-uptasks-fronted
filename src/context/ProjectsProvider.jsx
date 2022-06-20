@@ -328,6 +328,7 @@ const ProjectsProvider=({children})=>{
         msg:error,
         error:true
       })
+      console.log(error);
     }
   }
   // provider
