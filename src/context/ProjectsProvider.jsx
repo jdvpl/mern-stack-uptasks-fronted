@@ -389,6 +389,13 @@ const ProjectsProvider=({children})=>{
       projectupdated.tasks=projectupdated.tasks.map(t=>t._id==task._id?task:t);
       setproject(projectupdated);
   }
+  // logout
+  const logoutProjects=()=>{
+    setprojects([]);
+    setproject({})
+    setAlert({})
+    settask({})
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -422,7 +429,8 @@ const ProjectsProvider=({children})=>{
         submitTaskProject,
         deleteTaskProject,
         updateTaskProject,
-        changeSatusTaskProject
+        changeSatusTaskProject,
+        logoutProjects,
       }}
     >
       {children}
