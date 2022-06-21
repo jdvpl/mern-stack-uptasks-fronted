@@ -343,17 +343,11 @@ const ProjectsProvider=({children})=>{
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.post(`/tasks/status/${id}`,{},config);
-      const projectupdated={...project};
-      projectupdated.tasks=projectupdated.tasks.map(t=>t._id==data.task._id?data.task:t);
-      setproject(projectupdated);
+      
       settask({})
-      setAlert({
-        msg: data.msg,
-        error:false
-      })
-      setTimeout(()=>{
-        setAlert({})
-      },2000)
+      setAlert({})
+      // /socket
+      socket.emit('change-status-task',data.task)
     } catch (e) {
   
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
@@ -390,6 +384,11 @@ const ProjectsProvider=({children})=>{
       projectupdated.tasks=projectupdated.tasks.map(t => t._id===task._id?task:t);
       setproject(projectupdated);
   }
+  const changeSatusTaskProject=(task)=>{
+    const projectupdated={...project};
+      projectupdated.tasks=projectupdated.tasks.map(t=>t._id==task._id?task:t);
+      setproject(projectupdated);
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -422,7 +421,8 @@ const ProjectsProvider=({children})=>{
         searcherInput,
         submitTaskProject,
         deleteTaskProject,
-        updateTaskProject
+        updateTaskProject,
+        changeSatusTaskProject
       }}
     >
       {children}
