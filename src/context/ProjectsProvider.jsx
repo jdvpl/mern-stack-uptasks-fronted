@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { getTokenHeaders } from '../utils';
 import io from 'socket.io-client'
+import useAuth from '../hooks/useAuth';
 
 
 let socket;
@@ -21,10 +22,11 @@ const ProjectsProvider=({children})=>{
   const [searcherInput, setsearcherInput] = useState(false);
 
   const navigate=useNavigate();
-
+  const {auth}= useAuth();
   useEffect(() => {
     getProjects();
-  }, []);
+  }, [auth]);
+
   useEffect(() => {
     socket=io(import.meta.env.VITE_URL_BACKEND);
   }, [])
