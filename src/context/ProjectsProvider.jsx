@@ -181,9 +181,6 @@ const ProjectsProvider=({children})=>{
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.post(`/tasks`,task,config);
-      const projectupdated={...project};
-      projectupdated.tasks=[...projectupdated.tasks,data];
-      setproject(projectupdated);
       setAlert({})
       setmodalTaskForm(false);
       // socket io
@@ -238,12 +235,12 @@ const ProjectsProvider=({children})=>{
         msg:data.msg,
         error:false
       })
-      const projectupdated={...project};
-      projectupdated.tasks=projectupdated.tasks.filter(t=> t._id !== task._id);
-      setproject(projectupdated)
-      setdeleteModalTask(false);
-      settask({})
 
+      setdeleteModalTask(false);
+      
+      // socket
+      socket.emit('delete task',task)
+      settask({})
       setTimeout(()=>{
         setAlert({})
       },3000)
@@ -374,10 +371,17 @@ const ProjectsProvider=({children})=>{
   }
 
   // socketIo
+  // tasks
   const submitTaskProject=(task)=>{
     const projectupdated={...project};
     projectupdated.tasks=[...projectupdated.tasks,task];
     setproject(projectupdated);
+  }
+
+  const deleteTaskProject=(task)=>{
+    const projectupdated={...project};
+      projectupdated.tasks=projectupdated.tasks.filter(t=> t._id !== task._id);
+      setproject(projectupdated)
   }
   // provider
   return (
@@ -409,7 +413,8 @@ const ProjectsProvider=({children})=>{
         handleTaskSate,
         handleSearcherInput,
         searcherInput,
-        submitTaskProject
+        submitTaskProject,
+        deleteTaskProject
       }}
     >
       {children}
