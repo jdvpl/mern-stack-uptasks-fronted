@@ -2,11 +2,11 @@ import {useState,useEffect,createContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import clienteAxios from '../config/Axios';
 import { getTokenHeaders } from '../utils';
+import io from 'socket.io-client'
 
 
+let socket;
 const ProjectsContext =createContext();
-
-
 const ProjectsProvider=({children})=>{
 
   const [projects, setprojects] = useState([]);
@@ -25,6 +25,9 @@ const ProjectsProvider=({children})=>{
   useEffect(() => {
     getProjects();
   }, []);
+  useEffect(() => {
+    socket=io(import.meta.env.VITE_URL_BACKEND);
+  }, [])
   const showAlert = alert=>{
     setAlert(alert)
 
@@ -183,6 +186,8 @@ const ProjectsProvider=({children})=>{
       setproject(projectupdated);
       setAlert({})
       setmodalTaskForm(false);
+      // socket io
+      socket.emit('new task',data)
     } catch (e) {
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setAlert({
@@ -367,6 +372,13 @@ const ProjectsProvider=({children})=>{
   const handleSearcherInput=()=>{
     setsearcherInput(!searcherInput);
   }
+
+  // socketIo
+  const submitTaskProject=(task)=>{
+    const projectupdated={...project};
+    projectupdated.tasks=[...projectupdated.tasks,task];
+    setproject(projectupdated);
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -397,6 +409,7 @@ const ProjectsProvider=({children})=>{
         handleTaskSate,
         handleSearcherInput,
         searcherInput,
+        submitTaskProject
       }}
     >
       {children}

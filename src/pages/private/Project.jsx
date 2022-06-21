@@ -7,9 +7,11 @@ import Task from '../../components/private/Task';
 import ModalDeleteTask from '../../components/private/ModalDeleteTask';
 import Collaborator from './Collaborator';
 import ModalDeleteCollaborator from '../../components/private/ModalDeleteCollaborator';
+import io from 'socket.io-client'
 
+let socket;
 const Project = () => {
-const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=useProjects();
+const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm,submitTaskProject}=useProjects();
   
   const admin=useAdmin();
   const {id:idRouter}=useParams();
@@ -17,6 +19,19 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm}=use
   useEffect(() => {
     getProject(idRouter);
   }, [])
+
+  useEffect(() => {
+    socket=io(import.meta.env.VITE_URL_BACKEND);
+    socket.emit('open project',idRouter)
+  }, [])
+
+  useEffect(() => {
+    socket.on('task added',(newtask) => {
+      if(newtask.project==project.uid){
+        submitTaskProject(newtask);
+      }
+    })
+  })
   const deleteProjectHandle=() => {
     if(confirm('Are you sure you want to delete this project?')){
       deleteProject(idRouter);

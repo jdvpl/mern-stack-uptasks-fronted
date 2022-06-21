@@ -1,19 +1,9 @@
-import {useEffect} from 'react';
 import Mensaje from '../../components/Mensaje';
 import PreviewProject from '../../components/private/previewProject';
 import useProjects from '../../hooks/useProjects';
-import io from 'socket.io-client'
 
-let socket;
 const Projects = () => {
   const {projects,alert}=useProjects();
-  useEffect(() => {
-    socket=io(import.meta.env.VITE_URL__LOCAL)
-    socket.emit('test',"kakaroto")
-    socket.on('response',(name) => {
-      console.table(name)
-    })
-  }, []);
   const {msg}=alert;
   return (
     <>
