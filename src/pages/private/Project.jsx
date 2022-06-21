@@ -11,7 +11,7 @@ import io from 'socket.io-client'
 
 let socket;
 const Project = () => {
-const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm,submitTaskProject,deleteTaskProject}=useProjects();
+const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm,submitTaskProject,deleteTaskProject,updateTaskProject}=useProjects();
   
   const admin=useAdmin();
   const {id:idRouter}=useParams();
@@ -35,6 +35,11 @@ const {getProject,project,loadingProject,deleteProject,alert,handleTaskForm,subm
     socket.on('task-deleted',taskDeleted=>{
       if(taskDeleted.project==project.uid){
         deleteTaskProject(taskDeleted)
+      }
+    })
+    socket.on('task-updated',taskUpdated=>{
+      if(taskUpdated.project._id==project.uid){
+        updateTaskProject(taskUpdated)
       }
     })
   })

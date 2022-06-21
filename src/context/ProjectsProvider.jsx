@@ -201,11 +201,11 @@ const ProjectsProvider=({children})=>{
     try {
       const config =getTokenHeaders();
       const {data} = await clienteAxios.put(`/tasks/${task.id}`,task,config);
-      const projectupdated={...project};
-      projectupdated.tasks=projectupdated.tasks.map(t => t._id===data._id?data:t);
-      setproject(projectupdated);
+      
       setAlert({})
       setmodalTaskForm(false);
+      // socket
+      socket.emit('update-task',data);
     } catch (e) {
       const error=(e.response.data.errors)? e.response.data.errors[0].msg : e.response.data.msg;
       setAlert({
@@ -215,6 +215,7 @@ const ProjectsProvider=({children})=>{
       setTimeout(()=>{
         setAlert({})
       },3000)
+      
     }
   }
   const handleEditTaskForm=task=>{
@@ -383,6 +384,12 @@ const ProjectsProvider=({children})=>{
       projectupdated.tasks=projectupdated.tasks.filter(t=> t._id !== task._id);
       setproject(projectupdated)
   }
+
+  const updateTaskProject=(task)=>{
+    const projectupdated={...project};
+      projectupdated.tasks=projectupdated.tasks.map(t => t._id===task._id?task:t);
+      setproject(projectupdated);
+  }
   // provider
   return (
     <ProjectsContext.Provider
@@ -414,7 +421,8 @@ const ProjectsProvider=({children})=>{
         handleSearcherInput,
         searcherInput,
         submitTaskProject,
-        deleteTaskProject
+        deleteTaskProject,
+        updateTaskProject
       }}
     >
       {children}
