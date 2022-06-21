@@ -22,7 +22,9 @@ const ProjectsProvider=({children})=>{
 
   const navigate=useNavigate();
 
-
+  useEffect(() => {
+    getProjects();
+  }, []);
   const showAlert = alert=>{
     setAlert(alert)
 
