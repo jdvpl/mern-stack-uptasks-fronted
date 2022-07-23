@@ -9,7 +9,7 @@ const Header = () => {
   const handelLogout =()=>{
     logoutProjects();
     logoutUser();
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
   return (
     <header className="px-4 py-5 bg-white border-b">

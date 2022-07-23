@@ -28,7 +28,7 @@ const Login = () => {
     try {
       const {data}=await clienteAxios.post('/auth/login',{email,password})
       setalerta({})
-      localStorage.setItem('token',data.token)
+      sessionStorage.setItem('token',data.token)
       setauth(data.user)
       navigate('/projects')
     } catch (e) {
